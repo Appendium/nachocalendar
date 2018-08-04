@@ -45,6 +45,7 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.nachocalendar.components.CalendarUtils;
 import net.sf.nachocalendar.event.DateSelectionEvent;
 import net.sf.nachocalendar.event.DateSelectionListener;
@@ -56,6 +57,7 @@ import net.sf.nachocalendar.event.DateSelectionListener;
  * 
  *  
  */
+@Slf4j
 public class DefaultDateSelectionModel implements DateSelectionModel {
     private DateSelectionModel model;
     private boolean isAdjusting, pendingEvent;
@@ -76,6 +78,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
      * @see net.sf.nachocalendar.model.DateSelectionModel#addSelectionInterval(java.util.Date,
      *      java.util.Date)
      */
+    @Override
     public void addSelectionInterval(final Date from, final Date to) {
         model.addSelectionInterval(from, to);
         fireDateSelectionListenerValueChanged(new DateSelectionEvent(this));
@@ -84,6 +87,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
     /**
      * @see net.sf.nachocalendar.model.DateSelectionModel#clearSelection()
      */
+    @Override
     public void clearSelection() {
         model.clearSelection();
         fireDateSelectionListenerValueChanged(new DateSelectionEvent(this));
@@ -92,6 +96,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
     /**
      * @see net.sf.nachocalendar.model.DateSelectionModel#isSelectedDate(java.util.Date)
      */
+    @Override
     public boolean isSelectedDate(final Date date) {
         return model.isSelectedDate(date);
     }
@@ -99,6 +104,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
     /**
      * @see net.sf.nachocalendar.model.DateSelectionModel#isSelectionEmpty()
      */
+    @Override
     public boolean isSelectionEmpty() {
         return model.isSelectionEmpty();
     }
@@ -107,6 +113,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
      * @see net.sf.nachocalendar.model.DateSelectionModel#removeSelectionInterval(java.util.Date,
      *      java.util.Date)
      */
+    @Override
     public void removeSelectionInterval(final Date from, final Date to) {
         model.removeSelectionInterval(from, to);
         fireDateSelectionListenerValueChanged(new DateSelectionEvent(this));
@@ -118,6 +125,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
      * @param listener
      *            The listener to register.
      */
+    @Override
     public synchronized void addDateSelectionListener(final net.sf.nachocalendar.event.DateSelectionListener listener) {
         if (listenerList == null) {
             listenerList = new javax.swing.event.EventListenerList();
@@ -131,6 +139,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
      * @param listener
      *            The listener to remove.
      */
+    @Override
     public synchronized void removeDateSelectionListener(final net.sf.nachocalendar.event.DateSelectionListener listener) {
         listenerList.remove(net.sf.nachocalendar.event.DateSelectionListener.class, listener);
     }
@@ -160,6 +169,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
     /**
      * @return Returns the selectionMode.
      */
+    @Override
     public int getSelectionMode() {
         return model.getSelectionMode();
     }
@@ -168,6 +178,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
      * @param selectionMode
      *            The selectionMode to set.
      */
+    @Override
     public void setSelectionMode(final int selectionMode) {
         switch (selectionMode) {
         case SINGLE_SELECTION:
@@ -188,6 +199,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
      * 
      * @see net.sf.nachocalendar.model.DateSelectionModel#getLeadSelectionDate()
      */
+    @Override
     public Date getLeadSelectionDate() {
         return model.getLeadSelectionDate();
     }
@@ -197,6 +209,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
      * 
      * @see net.sf.nachocalendar.model.DateSelectionModel#setLeadSelectionDate(java.util.Date)
      */
+    @Override
     public void setLeadSelectionDate(final Date date) {
         model.setLeadSelectionDate(date);
     }
@@ -206,6 +219,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
      * 
      * @see net.sf.nachocalendar.model.DateSelectionModel#getSelectedDate()
      */
+    @Override
     public Object getSelectedDate() {
         return model.getSelectedDate();
     }
@@ -215,6 +229,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
      * 
      * @see net.sf.nachocalendar.model.DateSelectionModel#getSelectedDates()
      */
+    @Override
     public Object[] getSelectedDates() {
         return model.getSelectedDates();
     }
@@ -224,6 +239,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
      * 
      * @see net.sf.nachocalendar.model.DateSelectionModel#setSelectedDate(java.lang.Object)
      */
+    @Override
     public void setSelectedDate(final Object date) {
         model.setSelectedDate(date);
         fireDateSelectionListenerValueChanged(new DateSelectionEvent(this));
@@ -232,6 +248,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
     /**
      * @see net.sf.nachocalendar.model.DateSelectionModel#setSelectedDates(java.lang.Object[])
      */
+    @Override
     public void setSelectedDates(final Object[] dates) {
         model.setSelectedDates(dates);
         fireDateSelectionListenerValueChanged(new DateSelectionEvent(this));
@@ -252,6 +269,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
     /* (non-Javadoc)
      * @see net.sf.nachocalendar.model.DateSelectionModel#setValueIsAdjusting(boolean)
      */
+    @Override
     public void setValueIsAdjusting(final boolean b) {
         isAdjusting = b;
         if (!b && pendingEvent) {
@@ -263,6 +281,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
     /* (non-Javadoc)
      * @see net.sf.nachocalendar.model.DateSelectionModel#getValueIsAdjusting()
      */
+    @Override
     public boolean getValueIsAdjusting() {
         return isAdjusting;
     }
@@ -276,6 +295,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * @see net.sf.nachocalendar.model.DateSelectionModel#addSelectionInterval(java.util.Date,
          *      java.util.Date)
          */
+        @Override
         public void addSelectionInterval(final Date from, final Date to) {
             selection = to;
         }
@@ -285,6 +305,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#clearSelection()
          */
+        @Override
         public void clearSelection() {
             selection = null;
         }
@@ -294,6 +315,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#isSelectedDate(java.util.Date)
          */
+        @Override
         public boolean isSelectedDate(final Date date) {
             if (selection == null) {
                 return false;
@@ -309,6 +331,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#isSelectionEmpty()
          */
+        @Override
         public boolean isSelectionEmpty() {
             return (selection == null);
         }
@@ -319,6 +342,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * @see net.sf.nachocalendar.model.DateSelectionModel#removeSelectionInterval(java.util.Date,
          *      java.util.Date)
          */
+        @Override
         public void removeSelectionInterval(final Date from, final Date to) {
 
         }
@@ -328,6 +352,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#addDateSelectionListener(net.sf.nachocalendar.event.DateSelectionListener)
          */
+        @Override
         public void addDateSelectionListener(final DateSelectionListener listener) {
         }
 
@@ -336,12 +361,14 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#removeDateSelectionListener(net.sf.nachocalendar.event.DateSelectionListener)
          */
+        @Override
         public void removeDateSelectionListener(final DateSelectionListener listener) {
         }
 
         /**
          * @return
          */
+        @Override
         public int getSelectionMode() {
             return SINGLE_SELECTION;
         }
@@ -349,6 +376,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
         /**
          * @param selectionMode
          */
+        @Override
         public void setSelectionMode(final int selectionMode) {
 
         }
@@ -358,6 +386,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#getLeadSelectionDate()
          */
+        @Override
         public Date getLeadSelectionDate() {
             return selection;
         }
@@ -367,6 +396,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#setLeadSelectionDate(java.util.Date)
          */
+        @Override
         public void setLeadSelectionDate(final Date date) {
             selection = date;
         }
@@ -376,6 +406,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#getSelectedDate()
          */
+        @Override
         public Object getSelectedDate() {
             return selection;
         }
@@ -385,6 +416,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#getSelectedDates()
          */
+        @Override
         public Object[] getSelectedDates() {
             return new Object[] { selection };
         }
@@ -394,6 +426,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#setSelectedDate(java.lang.Object)
          */
+        @Override
         public void setSelectedDate(final Object date) {
             if (date == null) {
                 return;
@@ -401,7 +434,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
             try {
                 selection = CalendarUtils.convertToDate(date);
             } catch (final ParseException e) {
-                e.printStackTrace();
+                log.error("Set Selected Date", e);
             }
         }
 
@@ -410,6 +443,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#setSelectedDates(java.lang.Object[])
          */
+        @Override
         public void setSelectedDates(final Object[] dates) {
             if (dates == null) {
                 return;
@@ -421,13 +455,14 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
             try {
                 selection = CalendarUtils.convertToDate(dates[0]);
             } catch (final ParseException e) {
-                e.printStackTrace();
+                log.error("Set Selected Dates", e);
             }
         }
 
         /* (non-Javadoc)
          * @see net.sf.nachocalendar.model.DateSelectionModel#setValueIsAdjusting(boolean)
          */
+        @Override
         public void setValueIsAdjusting(final boolean b) {
             // empty method
         }
@@ -435,6 +470,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
         /* (non-Javadoc)
          * @see net.sf.nachocalendar.model.DateSelectionModel#getValueIsAdjusting()
          */
+        @Override
         public boolean getValueIsAdjusting() {
             // empty method
             return false;
@@ -451,6 +487,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * @see net.sf.nachocalendar.model.DateSelectionModel#addSelectionInterval(java.util.Date,
          *      java.util.Date)
          */
+        @Override
         public void addSelectionInterval(final Date from, final Date to) {
             if ((from == null) || (to == null)) {
                 this.from = null;
@@ -472,6 +509,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#clearSelection()
          */
+        @Override
         public void clearSelection() {
             from = null;
             to = null;
@@ -482,6 +520,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#isSelectedDate(java.util.Date)
          */
+        @Override
         public boolean isSelectedDate(final Date date) {
             if ((from == null) || (to == null)) {
                 return false;
@@ -503,6 +542,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#isSelectionEmpty()
          */
+        @Override
         public boolean isSelectionEmpty() {
             return ((from == null) || (to == null));
         }
@@ -513,6 +553,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * @see net.sf.nachocalendar.model.DateSelectionModel#removeSelectionInterval(java.util.Date,
          *      java.util.Date)
          */
+        @Override
         public void removeSelectionInterval(final Date from, final Date to) {
 
         }
@@ -522,6 +563,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#addDateSelectionListener(net.sf.nachocalendar.event.DateSelectionListener)
          */
+        @Override
         public void addDateSelectionListener(final DateSelectionListener listener) {
         }
 
@@ -530,12 +572,14 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#removeDateSelectionListener(net.sf.nachocalendar.event.DateSelectionListener)
          */
+        @Override
         public void removeDateSelectionListener(final DateSelectionListener listener) {
         }
 
         /**
          * @return
          */
+        @Override
         public int getSelectionMode() {
             return SINGLE_INTERVAL_SELECTION;
         }
@@ -543,6 +587,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
         /**
          * @param selectionMode
          */
+        @Override
         public void setSelectionMode(final int selectionMode) {
 
         }
@@ -552,6 +597,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#getLeadSelectionDate()
          */
+        @Override
         public Date getLeadSelectionDate() {
             return lead;
         }
@@ -561,6 +607,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#setLeadSelectionDate(java.util.Date)
          */
+        @Override
         public void setLeadSelectionDate(final Date date) {
             lead = date;
         }
@@ -570,6 +617,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#getSelectedDate()
          */
+        @Override
         public Object getSelectedDate() {
             return lead;
         }
@@ -579,6 +627,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#getSelectedDates()
          */
+        @Override
         public Object[] getSelectedDates() {
             return getDates(from, to);
         }
@@ -588,12 +637,13 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#setSelectedDate(java.lang.Object)
          */
+        @Override
         public void setSelectedDate(final Object date) {
             try {
                 from = CalendarUtils.convertToDate(date);
                 to = from;
             } catch (final ParseException e) {
-                e.printStackTrace();
+                log.error("Set Selected Date", e);
             }
         }
 
@@ -602,6 +652,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#setSelectedDates(java.lang.Object[])
          */
+        @Override
         public void setSelectedDates(final Object[] dates) {
             if ((dates == null) || (dates.length < 1)) {
                 from = null;
@@ -612,13 +663,14 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
                 from = CalendarUtils.convertToDate(dates[0]);
                 to = CalendarUtils.convertToDate(dates[dates.length - 1]);
             } catch (final ParseException e) {
-                e.printStackTrace();
+                log.error("Set Selected Dates", e);
             }
         }
 
         /* (non-Javadoc)
          * @see net.sf.nachocalendar.model.DateSelectionModel#setValueIsAdjusting(boolean)
          */
+        @Override
         public void setValueIsAdjusting(final boolean b) {
             // empty method
         }
@@ -626,6 +678,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
         /* (non-Javadoc)
          * @see net.sf.nachocalendar.model.DateSelectionModel#getValueIsAdjusting()
          */
+        @Override
         public boolean getValueIsAdjusting() {
             // empty method
             return false;
@@ -650,6 +703,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * @see net.sf.nachocalendar.model.DateSelectionModel#addSelectionInterval(java.util.Date,
          *      java.util.Date)
          */
+        @Override
         public void addSelectionInterval(final Date from, final Date to) {
             if ((from == null) || (to == null)) {
                 return;
@@ -679,6 +733,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#clearSelection()
          */
+        @Override
         public void clearSelection() {
             selection.clear();
         }
@@ -688,6 +743,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#isSelectedDate(java.util.Date)
          */
+        @Override
         public boolean isSelectedDate(final Date date) {
             if (selection.isEmpty()) {
                 return false;
@@ -710,6 +766,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#isSelectionEmpty()
          */
+        @Override
         public boolean isSelectionEmpty() {
             return selection.isEmpty();
         }
@@ -720,6 +777,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * @see net.sf.nachocalendar.model.DateSelectionModel#removeSelectionInterval(java.util.Date,
          *      java.util.Date)
          */
+        @Override
         public void removeSelectionInterval(final Date from, final Date to) {
             if ((from == null) || (to == null)) {
                 return;
@@ -749,6 +807,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#addDateSelectionListener(net.sf.nachocalendar.event.DateSelectionListener)
          */
+        @Override
         public void addDateSelectionListener(final DateSelectionListener listener) {
         }
 
@@ -757,12 +816,14 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#removeDateSelectionListener(net.sf.nachocalendar.event.DateSelectionListener)
          */
+        @Override
         public void removeDateSelectionListener(final DateSelectionListener listener) {
         }
 
         /**
          * @return
          */
+        @Override
         public int getSelectionMode() {
             return MULTIPLE_INTERVAL_SELECTION;
         }
@@ -770,6 +831,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
         /**
          * @param selectionMode
          */
+        @Override
         public void setSelectionMode(final int selectionMode) {
 
         }
@@ -779,6 +841,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#getLeadSelectionDate()
          */
+        @Override
         public Date getLeadSelectionDate() {
             return leadSelection;
         }
@@ -788,6 +851,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#setLeadSelectionDate(java.util.Date)
          */
+        @Override
         public void setLeadSelectionDate(final Date date) {
             leadSelection = date;
         }
@@ -797,6 +861,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#getSelectedDate()
          */
+        @Override
         public Object getSelectedDate() {
             if (selection.isEmpty()) {
                 return null;
@@ -809,6 +874,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#getSelectedDates()
          */
+        @Override
         public Object[] getSelectedDates() {
             Collections.sort(selection);
             return selection.toArray();
@@ -819,13 +885,14 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#setSelectedDate(java.lang.Object)
          */
+        @Override
         public void setSelectedDate(final Object date) {
             selection.clear();
             if (date != null) {
                 try {
                     selection.add(CalendarUtils.convertToDate(date));
                 } catch (final ParseException e) {
-                    e.printStackTrace();
+                    log.error("Set Selected Date", e);
                 }
             }
         }
@@ -835,6 +902,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
          * 
          * @see net.sf.nachocalendar.model.DateSelectionModel#setSelectedDates(java.lang.Object[])
          */
+        @Override
         public void setSelectedDates(final Object[] dates) {
             selection.clear();
             if ((dates == null) || (dates.length < 1)) {
@@ -844,7 +912,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
                 try {
                     selection.add(CalendarUtils.convertToDate(dates[i]));
                 } catch (final ParseException e) {
-                    e.printStackTrace();
+                    log.error("Set Selected Dates", e);
                 }
             }
         }
@@ -852,6 +920,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
         /* (non-Javadoc)
          * @see net.sf.nachocalendar.model.DateSelectionModel#setValueIsAdjusting(boolean)
          */
+        @Override
         public void setValueIsAdjusting(final boolean b) {
             // empty method
         }
@@ -859,6 +928,7 @@ public class DefaultDateSelectionModel implements DateSelectionModel {
         /* (non-Javadoc)
          * @see net.sf.nachocalendar.model.DateSelectionModel#getValueIsAdjusting()
          */
+        @Override
         public boolean getValueIsAdjusting() {
             // empty method
             return false;

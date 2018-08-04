@@ -113,7 +113,7 @@ public class DateField extends JPanel implements ActionListener, PropertyChangeL
 
     private boolean printMoon;
 
-    private Locale locale;
+    private Locale levelLocale;
 
     private DateFormat dateFormat;
 
@@ -191,13 +191,13 @@ public class DateField extends JPanel implements ActionListener, PropertyChangeL
      *            Locale to use
      */
     public DateField(final Locale locale) {
-        this.locale = locale;
+        this.levelLocale = locale;
         init();
     }
 
     private void init() {
-        if (locale == null) {
-            locale = Locale.getDefault();
+        if (levelLocale == null) {
+            levelLocale = Locale.getDefault();
         }
         calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR, 0);
@@ -211,7 +211,7 @@ public class DateField extends JPanel implements ActionListener, PropertyChangeL
             field = new JFormattedTextField(dateFormat);
         } else {
             if (formatter == null) {
-                formatter = new DateFormatter(DateFormat.getDateInstance(DateFormat.SHORT, locale));
+                formatter = new DateFormatter(DateFormat.getDateInstance(DateFormat.SHORT, levelLocale));
             }
             field = new JFormattedTextField(formatter);
         }

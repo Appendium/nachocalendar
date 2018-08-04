@@ -35,6 +35,7 @@ package net.sf.nachocalendar.customizer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.nachocalendar.components.CalendarPanel;
 import net.sf.nachocalendar.components.DateField;
 import net.sf.nachocalendar.components.DatePanel;
@@ -51,6 +52,7 @@ import net.sf.nachocalendar.model.DateSelectionModel;
  *
  * 
  */
+@Slf4j
 public class DirectSetter implements PropertiesSetter {
     private boolean initialized;
     private boolean allowsInvalid, printMoon;
@@ -179,7 +181,7 @@ public class DirectSetter implements PropertiesSetter {
         try {
             return Class.forName(name);
         } catch (final ClassNotFoundException e) {
-            e.printStackTrace();
+            log.error("Class issue", e);
             return null;
         }
     }
@@ -187,6 +189,7 @@ public class DirectSetter implements PropertiesSetter {
     /* (non-Javadoc)
      * @see net.sf.nachocalendar.customizer.PropertiesSetter#customize(net.sf.nachocalendar.components.DateField)
      */
+    @Override
     public void customize(final DateField datefield) {
         if (!initialized) {
             throw new IllegalStateException("This setter is not initialized.");
@@ -204,20 +207,16 @@ public class DirectSetter implements PropertiesSetter {
         if (headerRenderer != null) {
             try {
                 datefield.setHeaderRenderer((HeaderRenderer) headerRenderer.newInstance());
-            } catch (final InstantiationException e) {
-                e.printStackTrace();
-            } catch (final IllegalAccessException e) {
-                e.printStackTrace();
+            } catch (final InstantiationException | IllegalAccessException e) {
+                log.error("Header renderer", e);
             }
         }
 
         if (model != null) {
             try {
                 datefield.setModel((DataModel) model.newInstance());
-            } catch (final InstantiationException e) {
-                e.printStackTrace();
-            } catch (final IllegalAccessException e) {
-                e.printStackTrace();
+            } catch (final InstantiationException | IllegalAccessException e) {
+                log.error("Model", e);
             }
         }
 
@@ -226,10 +225,8 @@ public class DirectSetter implements PropertiesSetter {
         if (renderer != null) {
             try {
                 datefield.setRenderer((DayRenderer) renderer.newInstance());
-            } catch (final InstantiationException e) {
-                e.printStackTrace();
-            } catch (final IllegalAccessException e) {
-                e.printStackTrace();
+            } catch (final InstantiationException | IllegalAccessException e) {
+                log.error("renderer", e);
             }
         }
 
@@ -248,6 +245,7 @@ public class DirectSetter implements PropertiesSetter {
     /* (non-Javadoc)
      * @see net.sf.nachocalendar.customizer.PropertiesSetter#customize(net.sf.nachocalendar.components.CalendarPanel)
      */
+    @Override
     public void customize(final CalendarPanel calendarpanel) {
         if (!initialized) {
             throw new IllegalStateException("This setter is not initialized.");
@@ -259,20 +257,16 @@ public class DirectSetter implements PropertiesSetter {
         if (headerRenderer != null) {
             try {
                 calendarpanel.setHeaderRenderer((HeaderRenderer) headerRenderer.newInstance());
-            } catch (final InstantiationException e) {
-                e.printStackTrace();
-            } catch (final IllegalAccessException e) {
-                e.printStackTrace();
+            } catch (final InstantiationException | IllegalAccessException e) {
+                log.error("Header renderer", e);
             }
         }
 
         if (model != null) {
             try {
                 calendarpanel.setModel((DataModel) model.newInstance());
-            } catch (final InstantiationException e) {
-                e.printStackTrace();
-            } catch (final IllegalAccessException e) {
-                e.printStackTrace();
+            } catch (final InstantiationException | IllegalAccessException e) {
+                log.error("Model", e);
             }
         }
 
@@ -281,10 +275,8 @@ public class DirectSetter implements PropertiesSetter {
         if (renderer != null) {
             try {
                 calendarpanel.setRenderer((DayRenderer) renderer.newInstance());
-            } catch (final InstantiationException e) {
-                e.printStackTrace();
-            } catch (final IllegalAccessException e) {
-                e.printStackTrace();
+            } catch (final InstantiationException | IllegalAccessException e) {
+                log.error("renderer", e);
             }
         }
 
@@ -305,6 +297,7 @@ public class DirectSetter implements PropertiesSetter {
     /* (non-Javadoc)
      * @see net.sf.nachocalendar.customizer.PropertiesSetter#customize(net.sf.nachocalendar.components.DatePanel)
      */
+    @Override
     public void customize(final DatePanel datepanel) {
         if (!initialized) {
             throw new IllegalStateException("This setter is not initialized.");
@@ -316,20 +309,16 @@ public class DirectSetter implements PropertiesSetter {
         if (headerRenderer != null) {
             try {
                 datepanel.setHeaderRenderer((HeaderRenderer) headerRenderer.newInstance());
-            } catch (final InstantiationException e) {
-                e.printStackTrace();
-            } catch (final IllegalAccessException e) {
-                e.printStackTrace();
+            } catch (final InstantiationException | IllegalAccessException e) {
+                log.error("Header renderer", e);
             }
         }
 
         if (model != null) {
             try {
                 datepanel.setModel((DataModel) model.newInstance());
-            } catch (final InstantiationException e) {
-                e.printStackTrace();
-            } catch (final IllegalAccessException e) {
-                e.printStackTrace();
+            } catch (final InstantiationException | IllegalAccessException e) {
+                log.error("Model", e);
             }
         }
 
@@ -338,10 +327,8 @@ public class DirectSetter implements PropertiesSetter {
         if (renderer != null) {
             try {
                 datepanel.setRenderer((DayRenderer) renderer.newInstance());
-            } catch (final InstantiationException e) {
-                e.printStackTrace();
-            } catch (final IllegalAccessException e) {
-                e.printStackTrace();
+            } catch (final InstantiationException | IllegalAccessException e) {
+                log.error("Renderer", e);
             }
         }
 

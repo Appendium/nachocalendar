@@ -50,16 +50,16 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.text.MaskFormatter;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Component used to change the current year. It extends from JComboBox
  * and has two arrows for unitary changes. It fires a ChangeEvent
  * when the year is changed.
  * @author Ignacio Merani
  */
+@Slf4j
 public class YearScroller extends javax.swing.JPanel {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private JButton bNext;
     private JButton bPrevious;
@@ -93,7 +93,7 @@ public class YearScroller extends javax.swing.JPanel {
         try {
             tYear = new javax.swing.JFormattedTextField(new MaskFormatter("####"));
         } catch (final Exception e) {
-            e.printStackTrace();
+            log.error("issue", e);
         }
         bNext = new ArrowButton(SwingConstants.EAST);
 
@@ -128,6 +128,7 @@ public class YearScroller extends javax.swing.JPanel {
     }
 
     private class FormListener implements java.awt.event.ActionListener {
+        @Override
         public void actionPerformed(final java.awt.event.ActionEvent evt) {
             if (evt.getSource() == bPrevious) {
                 YearScroller.this.bPreviousActionPerformed(evt);
@@ -251,6 +252,7 @@ public class YearScroller extends javax.swing.JPanel {
      * Enables or disables the component.
      * @param b true for enabling
      */
+    @Override
     public void setEnabled(final boolean b) {
         bNext.setEnabled(b);
         bPrevious.setEnabled(b);
@@ -261,6 +263,7 @@ public class YearScroller extends javax.swing.JPanel {
      * Getter for enabled property.
      * @return true if it's enabled
      */
+    @Override
     public boolean isEnabled() {
         return tYear.isEnabled();
     }
