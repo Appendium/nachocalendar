@@ -74,6 +74,7 @@ import javax.swing.JScrollBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.nachocalendar.event.DateSelectionEvent;
 import net.sf.nachocalendar.event.DateSelectionListener;
 import net.sf.nachocalendar.model.DataModel;
@@ -84,10 +85,8 @@ import net.sf.nachocalendar.model.DefaultDateSelectionModel;
  * Panel used to show many months at once.
  * @author Ignacio Merani
  */
+@Slf4j
 public class CalendarPanel extends JPanel implements ChangeListener {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private boolean antiAliased;
     private KeyListener klistener;
@@ -103,7 +102,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
     private boolean printMoon;
     protected boolean eternalScroll;
     private boolean showToday;
-    private final int middle; //used to display the panel in the middle!
+    private final int middle; // used to display the panel in the middle!
 
     /** Array with the panels. */
     private MonthPanel[] months;
@@ -191,7 +190,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
         this(quantity, orientation, true);
     }
 
-    //TODO: LeO: parameterized correctly
+    // TODO: LeO: parameterized correctly
     public CalendarPanel(final int quantity, final int orientation, final boolean showWeekNumber) {
         this(quantity, orientation, showWeekNumber, true);
     }
@@ -256,6 +255,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
              */
             private static final long serialVersionUID = 1L;
 
+            @Override
             public void setValue(final int value) {
                 super.setValue(value);
                 if (eternalScroll) {
@@ -295,8 +295,8 @@ public class CalendarPanel extends JPanel implements ChangeListener {
      * @param eternalScroll
      */
     private void initDisplayPanel() {
-        final int displayRange = cal.get(Calendar.MONTH); //first we have to retrieve the month
-        setShowingYear(cal.get(Calendar.YEAR)); //next we set the year (and change the cal)
+        final int displayRange = cal.get(Calendar.MONTH); // first we have to retrieve the month
+        setShowingYear(cal.get(Calendar.YEAR)); // next we set the year (and change the cal)
 
         if (0 < displayRange && (displayRange - middle) < 10) {
             scroll.setValue(displayRange - middle);
@@ -310,18 +310,21 @@ public class CalendarPanel extends JPanel implements ChangeListener {
     /** Utility method used during initialization. */
     private void createListeners() {
         scroll.addAdjustmentListener(new AdjustmentListener() {
+            @Override
             public void adjustmentValueChanged(final AdjustmentEvent e) {
                 setShowingMonth(e.getValue());
             }
         });
 
         ys.addChangeListener(new ChangeListener() {
+            @Override
             public void stateChanged(final ChangeEvent e) {
                 setShowingYear(ys.getYear());
             }
         });
 
         today.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(final ActionEvent e) {
                 cal.setTime(new Date());
                 initDisplayPanel();
@@ -329,6 +332,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
         });
 
         addMouseWheelListener(new MouseWheelListener() {
+            @Override
             public void mouseWheelMoved(final MouseWheelEvent e) {
                 if (!isEnabled()) {
                     return;
@@ -356,6 +360,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
 
         // listener to pass events
         klistener = new KeyListener() {
+            @Override
             public void keyPressed(final KeyEvent e) {
                 boolean changed = false;
                 final int keycode = e.getKeyCode();
@@ -413,15 +418,17 @@ public class CalendarPanel extends JPanel implements ChangeListener {
                     calendar.setTime(navigation.getTime());
                     refreshSelection();
                     repaint();
-                    //monthpanel.repaint();
+                    // monthpanel.repaint();
                 }
                 fireKeyListenerKeyPressed(e);
             }
 
+            @Override
             public void keyReleased(final KeyEvent e) {
                 fireKeyListenerKeyReleased(e);
             }
 
+            @Override
             public void keyTyped(final KeyEvent e) {
                 fireKeyListenerKeyTyped(e);
             }
@@ -438,6 +445,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
         };*/
 
         mlistener = new MouseAdapter() {
+            @Override
             public void mouseClicked(final MouseEvent e) {
                 final DayPanel dp = (DayPanel) e.getSource();
                 if (!dp.isEnabled() || !dp.isComponentEnabled()) {
@@ -476,6 +484,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
 
         // listener para la seleccion
         listlistener = new DateSelectionListener() {
+            @Override
             public void valueChanged(final DateSelectionEvent e) {
                 for (int i = 0; i < months.length; i++) {
                     final DayPanel[] daypanels = months[i].getDaypanels();
@@ -580,6 +589,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
      * Event fired when the selected day changes.
      * @param e event fired
      */
+    @Override
     public void stateChanged(final ChangeEvent e) {
         fireChangeListenerStateChanged(e);
     }
@@ -591,8 +601,8 @@ public class CalendarPanel extends JPanel implements ChangeListener {
     private void setShowingMonth(final int month) {
         final Calendar cal = new GregorianCalendar(showingyear, month, 1);
         for (int i = 0; i < months.length; i++) {
-            //cal.setTime(months[i].getMonth());
-            //cal.add(Calendar.MONTH, cal.get(Calendar.MONTH) - month + i);
+            // cal.setTime(months[i].getMonth());
+            // cal.add(Calendar.MONTH, cal.get(Calendar.MONTH) - month + i);
             months[i].setMonth(cal.getTime());
             /*months[i].setSelectionOffset((month + i) * 42);
             months[i].setSelectionOffset(cal.get(Calendar.MONTH));*/
@@ -920,6 +930,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
      * Registers KeyListener to receive events.
      * @param listener The listener to register.
      */
+    @Override
     public synchronized void addKeyListener(final java.awt.event.KeyListener listener) {
         if (listenerList == null) {
             listenerList = new javax.swing.event.EventListenerList();
@@ -931,6 +942,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
      * Removes KeyListener from the list of listeners.
      * @param listener The listener to remove.
      */
+    @Override
     public synchronized void removeKeyListener(final java.awt.event.KeyListener listener) {
         listenerList.remove(java.awt.event.KeyListener.class, listener);
     }
@@ -990,6 +1002,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
      * Enables or disables the component
      * @param enabled true for enabling
      */
+    @Override
     public void setEnabled(final boolean enabled) {
         for (int i = 0; i < months.length; i++) {
             months[i].setEnabled(enabled);
@@ -1005,6 +1018,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
      * Getter for enabled property
      * @return true if it's enabled
      */
+    @Override
     public boolean isEnabled() {
         return scroll.isEnabled();
     }
@@ -1129,7 +1143,7 @@ public class CalendarPanel extends JPanel implements ChangeListener {
         try {
             setDate(CalendarUtils.convertToDate(date));
         } catch (final ParseException e) {
-            e.printStackTrace();
+            log.error("Issue", e);
         }
     }
 

@@ -67,6 +67,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.nachocalendar.event.DateSelectionEvent;
 import net.sf.nachocalendar.event.DateSelectionListener;
 import net.sf.nachocalendar.event.MonthChangeEvent;
@@ -82,6 +83,7 @@ import net.sf.nachocalendar.model.DefaultDateSelectionModel;
  * 
  * @author Ignacio Merani
  */
+@Slf4j
 public class DatePanel extends JPanel {
     /**
      * 
@@ -189,7 +191,7 @@ public class DatePanel extends JPanel {
         final DayPanel[] daypanels = monthpanel.getDaypanels();
         for (int i = 0; i < daypanels.length; i++) {
             daypanels[i].addMouseListener(mlistener);
-            //            System.out.println(i+"/ Adding Key Listener....");
+            // System.out.println(i+"/ Adding Key Listener....");
             daypanels[i].addKeyListener(klistener);
         }
         monthpanel.setMonth(getDate());
@@ -197,23 +199,27 @@ public class DatePanel extends JPanel {
 
     private void addListeners() {
         monthscroller.addChangeListener(new ChangeListener() {
+            @Override
             public void stateChanged(final ChangeEvent e) {
                 updateMonth();
             }
         });
 
         yearscroller.addChangeListener(new ChangeListener() {
+            @Override
             public void stateChanged(final ChangeEvent e) {
                 updateYear();
             }
         });
 
         monthscroller.addYearChangeListener(new YearChangeListener() {
+            @Override
             public void yearIncreased(final YearChangeEvent e) {
                 yearscroller.setYear(yearscroller.getYear() + 1);
                 updateYear();
             }
 
+            @Override
             public void yearDecreased(final YearChangeEvent e) {
                 yearscroller.setYear(yearscroller.getYear() - 1);
                 updateYear();
@@ -221,6 +227,7 @@ public class DatePanel extends JPanel {
         });
 
         addMouseWheelListener(new MouseWheelListener() {
+            @Override
             public void mouseWheelMoved(final MouseWheelEvent e) {
                 if (!isEnabled()) {
                     return;
@@ -238,6 +245,7 @@ public class DatePanel extends JPanel {
 
         dateSelectionModel.addDateSelectionListener(new DateSelectionListener() {
 
+            @Override
             public void valueChanged(final DateSelectionEvent e) {
                 refreshSelection();
                 fireChangeListenerStateChanged(new ChangeEvent(DatePanel.this));
@@ -246,6 +254,7 @@ public class DatePanel extends JPanel {
         });
 
         mlistener = new MouseAdapter() {
+            @Override
             public void mouseClicked(final MouseEvent e) {
                 final DayPanel dp = (DayPanel) e.getSource();
                 if (!dp.isEnabled() || !dp.isComponentEnabled()) {
@@ -280,6 +289,7 @@ public class DatePanel extends JPanel {
         };
 
         klistener = new KeyListener() {
+            @Override
             public void keyPressed(final KeyEvent e) {
                 boolean changed = false;
                 final int keycode = e.getKeyCode();
@@ -360,18 +370,21 @@ public class DatePanel extends JPanel {
                 fireKeyListenerKeyPressed(e);
             }
 
+            @Override
             public void keyReleased(final KeyEvent e) {
                 fireKeyListenerKeyReleased(e);
             }
 
+            @Override
             public void keyTyped(final KeyEvent e) {
                 fireKeyListenerKeyTyped(e);
             }
         };
 
         today.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(final ActionEvent e) {
-                //Calendar cal = Calendar.getInstance();
+                // Calendar cal = Calendar.getInstance();
                 setDate(new Date());
                 /*monthscroller.setMonth(cal.get(Calendar.MONTH));
                 yearscroller.setYear(cal.get(Calendar.YEAR));
@@ -583,7 +596,7 @@ public class DatePanel extends JPanel {
         try {
             setDate(CalendarUtils.convertToDate(value));
         } catch (final ParseException e) {
-            e.printStackTrace();
+            log.error("Issue", e);
         }
     }
 
@@ -633,6 +646,7 @@ public class DatePanel extends JPanel {
      * @param listener
      *            The listener to register.
      */
+    @Override
     public synchronized void addKeyListener(final java.awt.event.KeyListener listener) {
         if (listenerList == null) {
             listenerList = new javax.swing.event.EventListenerList();
@@ -646,6 +660,7 @@ public class DatePanel extends JPanel {
      * @param listener
      *            The listener to remove.
      */
+    @Override
     public synchronized void removeKeyListener(final java.awt.event.KeyListener listener) {
         listenerList.remove(java.awt.event.KeyListener.class, listener);
     }
@@ -710,6 +725,7 @@ public class DatePanel extends JPanel {
      * @param enabled
      *            true for enabling
      */
+    @Override
     public void setEnabled(final boolean enabled) {
         monthpanel.setEnabled(enabled);
         monthscroller.setEnabled(enabled);
@@ -723,6 +739,7 @@ public class DatePanel extends JPanel {
      * 
      * @return true if it's enabled
      */
+    @Override
     public boolean isEnabled() {
         return monthpanel.isEnabled();
     }
@@ -864,11 +881,11 @@ public class DatePanel extends JPanel {
     private void refreshSelection() {
         final DayPanel[] daypanels = monthpanel.getDaypanels();
         for (int i = 0; i < daypanels.length; i++) {
-            //+ BX
-            //            daypanels[i].addMouseListener(mlistener);
-            //            System.out.println("Again Adding Key Listener....");
-            //            daypanels[i].addKeyListener(klistener);
-            //+ BX
+            // + BX
+            // daypanels[i].addMouseListener(mlistener);
+            // System.out.println("Again Adding Key Listener....");
+            // daypanels[i].addKeyListener(klistener);
+            // + BX
             if (!daypanels[i].isEnabled()) {
                 daypanels[i].setSelected(false);
                 continue;

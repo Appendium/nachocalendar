@@ -1,25 +1,42 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <parent>
-    <groupId>net.sf.nachocalendar</groupId>
-    <artifactId>nachocalendar-parent</artifactId>
-    <version>0.24-SNAPSHOT</version>
-  </parent>
+    <parent>
+        <groupId>net.sf.nachocalendar</groupId>
+        <artifactId>nachocalendar-parent</artifactId>
+        <version>0.24-SNAPSHOT</version>
+    </parent>
 
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>nachocalendar</artifactId>
-  <packaging>jar</packaging>
-  <name>NachoCalendar</name>
-  <description>Calendar components</description>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>nachocalendar</artifactId>
+    <packaging>jar</packaging>
+    <name>NachoCalendar</name>
+    <description>Calendar components</description>
 
-  <dependencies><!-- See parent pom -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-    </dependency>
-  </dependencies>
+    <dependencies><!-- See parent pom -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>compile</scope>
+        </dependency>
+          <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 </project>

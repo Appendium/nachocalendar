@@ -83,6 +83,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.DateFormatter;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.nachocalendar.model.DataModel;
 
 /**
@@ -90,6 +91,7 @@ import net.sf.nachocalendar.model.DataModel;
  *
  * @author Ignacio Merani
  */
+@Slf4j
 public class DateField extends JPanel implements ActionListener, PropertyChangeListener {
     private static final long serialVersionUID = 1L;
 
@@ -249,7 +251,7 @@ public class DateField extends JPanel implements ActionListener, PropertyChangeL
                         });
                     }
                 });
-
+        
                 // This key binding is required for text components. It hides the
                 // default typed space key binding in a text component. If you don't
                 // hide this key binding, typing the space key will insert a space into
@@ -257,18 +259,18 @@ public class DateField extends JPanel implements ActionListener, PropertyChangeL
                 // See e1003 Overriding a Few Default Typed Key Bindings in a JTextComponent for more details.
                 field.getInputMap(JComponent.WHEN_FOCUSED).put(
                     KeyStroke.getKeyStroke(new Character(' '), 0), "unbound");
-
+        
                 // The actions
                 Action nextFocusAction = new AbstractAction("Move Focus Forwards") {
                     public void actionPerformed(ActionEvent evt) {
                         ((Component)evt.getSource()).transferFocus();
                     }
                 };
-
+        
                 // Bind F2 and shift F2
                 field.getInputMap(JComponent.WHEN_FOCUSED).put(
                     KeyStroke.getKeyStroke("ENTER"), nextFocusAction.getValue(Action.NAME));
-
+        
                 // Add actions
                 field.getActionMap().put(nextFocusAction.getValue(Action.NAME), nextFocusAction);
          */// + BX
@@ -373,7 +375,7 @@ public class DateField extends JPanel implements ActionListener, PropertyChangeL
         try {
             field.setValue(CalendarUtils.convertToDate(value));
         } catch (final ParseException e) {
-            e.printStackTrace();
+            log.error("Issue", e);
         }
     }
 
