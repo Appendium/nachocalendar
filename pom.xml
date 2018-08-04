@@ -10,7 +10,7 @@
     <artifactId>nachocalendar-parent</artifactId>
     <packaging>pom</packaging>
     <name>NachoCalendar</name>
-    <version>0.25</version>
+    <version>0.25-SNAPSHOT</version>
     <description>Calendar components</description>
     <url>https://github.com/Appendium/nachocalendar</url>
 
