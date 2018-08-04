@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<document>
+	<properties>
+		<title>Changes</title>
+		<author email="kit@objectlab.co.uk">Benoit Xhenseval</author>
+	</properties>
+	<body>
+		<release version="0.25" date="TBD" description="Maintenance">
+			<action dev="benoitx" type="update">Move to Github.</action>
+		</release>
+	</body>
+</document>
