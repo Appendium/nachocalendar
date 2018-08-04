@@ -51,16 +51,16 @@ import java.util.ResourceBundle;
  */
 public final class CalendarUtils {
     private static DateFormat dateformat;
-    private static Calendar calendar1, calendar2;
+    private Calendar calendar1, calendar2;
     private static ResourceBundle bundle = ResourceBundle.getBundle("net.sf.nachocalendar.language");
     static {
         dateformat = DateFormat.getDateInstance();
-        calendar1 = new GregorianCalendar();
-        calendar2 = new GregorianCalendar();
     }
 
     /** Creates a new instance of CalendarUtils */
     private CalendarUtils() {
+        calendar1 = new GregorianCalendar();
+        calendar2 = new GregorianCalendar();
     }
 
     /**

@@ -53,6 +53,7 @@ import net.sf.nachocalendar.components.DayRenderer;
  * @author Ignacio Merani
  * @deprecated As of version 0.20 replaced by net.sf.nachocalendar.holidays.HoliDayDecorator
  */
+@Deprecated
 public class HoliDayRenderer extends JLabel implements DayRenderer {
     /**
      * 
@@ -86,6 +87,7 @@ public class HoliDayRenderer extends JLabel implements DayRenderer {
      * @param working true if it's a working day
      * @param enabled true if it's enabled
      */
+    @Override
     public Component getDayRenderer(final DayPanel daypanel, final Date day, final Object data, final boolean selected, final boolean working,
             final boolean enabled) {
         if (selected) {
@@ -119,10 +121,6 @@ public class HoliDayRenderer extends JLabel implements DayRenderer {
             return this;
         }
 
-        if (!enabled) {
-            setForeground(Color.LIGHT_GRAY);
-            return this;
-        }
         if (data != null) {
             setForeground(Color.RED);
             if (data instanceof HoliDay) {
