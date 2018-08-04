@@ -36,7 +36,7 @@ in POM.XML
 
     <distributionManagement>
         <site>
-            <id>flatpack.sf.net</id>
+            <id>nachocalendar.sf.net</id>
             <url>${site.deploy.url}</url>
         </site>
         <snapshotRepository>
@@ -89,7 +89,7 @@ mvn release:clean release:prepare -DdryRun=true -Darguments="-Dgpg.passphrase=0b
 Where the keyname is the key ID you want to use, to see the keys
 gpg --list-secret-keys
 
-ironman:flatpack xhensevalb$ gpg --list-secret-keys
+ironman:nachocalendar xhensevalb$ gpg --list-secret-keys
 /Users/xhensevalb/.gnupg/secring.gpg
 ------------------------------------
 sec   2048R/F464BE85 2014-01-01 [expires: 2018-01-01]
@@ -170,7 +170,7 @@ So you need to add the staging repo in settings.xml.
 2)
 mvn release:prepare release:perform -DrepositoryId=sonatype-nexus-staging 
 	-Darguments="-Dgpg.passphrase=XXXXXXXXX -Dgpg.keyname=8F656881" 
-	-DconnectionUrl=scm:git:git@github.com:appendium/flatpack.git
+	-DconnectionUrl=scm:git:git@github.com:appendium/nachocalendar.git
 	 -Psonatype-nexus-staging -Dgoals=deploy -Dresume=false
 	 
 3) Go to target/checkout (where the latest release was checked out)
