@@ -7,7 +7,7 @@
     <groupId>net.sf.nachocalendar</groupId>
     <artifactId>nachocalendar-parent</artifactId>
     <!-- how to manage this version -->
-    <version>0.24-SNAPSHOT</version>
+    <version>0.25-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
