@@ -1,0 +1,33 @@
+language: java
+sudo: false
+install: true
+addons:
+  sonarcloud:
+    organization: benoitx-github
+    token:
+      secure: 13b70009cbae7646c3458517212a3ba73faff609
+git:
+  depth: false
+env:
+  global:
+  - SONATYPE_USERNAME=benoitx
+  - secure: bL/T4BDLUlBlunvDtv8m7W57S3p7pWG2sku/aNKcc78ggXDg0xK7+Gy53HVYyjjBH6E2V2HTRwvs+iXJ9GWsjuVHnRbpMRYkOi0LhpCdkw+WsO+rSDPBNFir/bDPOaznJ0BB3EBwm2eAllQ7JO7fz+bo4ozHasANndrZH35jrLS0QsbuTXRrDhfeEsLLn2UpqxyAusoWOXJfbu81nfArnLb7N+EhXSP1/NHVnmDnQbzQYQz/SJcJaem0wry/625wWF+d8cPLFvSp33r4wpsiU8LFAty3HK6Y4oDDQdsLMKh0OKTtepQ8S4aYtNOT/RHZHIKpxUHocmQvTWm7LvVZaRqBH1hVn9X2Q1cUaEjgfRh5Zvij564DbJIA32Ibb0prRaIlVPKzclBxJcZVwzzeFcH6E1rrSF+JjAzYfinXe1sYR77eZnHJ17e0p+iNtRwQtSRHRS6YTmIvETeIHDqIgt8veUp4M6iSMKx5OG+pBCfF2RxNxpW0p07FNSE895IEwhV6+XMCvqN8z7H3f+pT4UXSrHHfTeKHvzk7XbakHeeUzkSPUbZqrek95SORVJBO1SV39NSLv+hiAcXvhu0+X+ZpLNlgQpm5cwYKqJr6mIrPAUyDYni0e15kkqJMjZSvODHXdVYaUChCSX9t+F+mI00T4KRLF8VTQihlhswydyA=
+jdk:
+- oraclejdk8
+script:
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+cache:
+  directories:
+  - "$HOME/.m2/repository"
+  - "$HOME/.sonar/cache"
+notifications:
+  email:
+    recipients:
+    - opensource@appendium.com
+    on_success: always
+    on_failure: always
+  slack:
+    secure: eD6x7/YAzgm/2eXPrgGWFTww3WzsOV3Qb1PYqiJrxRNlJepisF67SsaxTaI/IWUYSCV6mNxVCwBd6vqila11WFqzAQ/drNm/0gE6AsPcOx/3c5A3e/z97SOplqOJmKoYksHk4hCadZPoBnYaE1m8fkAokrS122/PPQ6FlLSKIRBiOQr42pjA7/EzVNrChZRRKWyR6nBpI8p1KYEJyKC4nWTh/JJHMjoHZLiwIO6A3lraIFdb6J5eByZooij/DKhe+pxF1PI6HCKPpvIRQU+A1HjLBVaGS+7Uy97TcrVIhLzxjUmMviSZvYu+PTbSR96/1cioA0Mf07t7CWPNKsEvmzHosvkTQB+m8q4SRsXE2anaEmRLoY5YvXMWVl190+6kqexOQTx+ZZBuCzinDJWKmF3jFIqCca0mOk+5Wy6dcDf3ZBjONFXa7U0z88zrERsc1T/2FdZar0dWyDerKXuCvGQpShdZ8zpxCNmwtlb6dY2d4ZnCVhbG0SCUuxShqVJoDyH/3HEx7gDnJLv+6Bkb/J92TC0YzvrVoFCUya8fTQDDALNRILGAoBO+dLbVQWNAvxgtpyHmaJ3L7RFCgnLZ5mT3TgyRTHQI6/p/pEEQFalMxTQrRaiJMVvLWYHoT8aKp+wkdErjIQLi0JFn1SMi4QRQVB+s70IZtEA59uivTIs=
+after_success:
+- '[[ $TRAVIS_BRANCH == "master" ]] && { python travis/addServer.py; mvn clean deploy
+  --settings ~/.m2/mySettings.xml; };'

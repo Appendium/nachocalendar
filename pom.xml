@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+  <groupId>net.sf.nachocalendar</groupId>
+  <artifactId>nachocalendar-parent</artifactId>
+  <packaging>pom</packaging>
+  <name>NachoCalendar</name>
+  <version>0.24-SNAPSHOT</version>
+  <description>Calendar components</description>
+  <url>http://nachocalendar.sf.net</url>
+
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <site.deploy.url>http://nachocalendar.sf.net</site.deploy.url>
+    <github.global.server>github</github.global.server>
+    <github.global.oauth2Token>${env.GITHUB_OAUTH_TOKEN}</github.global.oauth2Token>
+    <javadoc.opts>-Xdoclint:none</javadoc.opts>
+    <slf4j.version>1.7.21</slf4j.version>
+</properties>
+
+  <inceptionYear>2004</inceptionYear>
+  <organization>
+      <name>Appendium - Portfolio Financing Platform</name>
+      <url>http://www.appendium.com/</url>
+  </organization>
+
+
+<distributionManagement>
+    <site>
+        <id>nachocalendar.sf.net</id>
+        <url>${site.deploy.url}</url>
+    </site>
+    <downloadUrl>http://sourceforge.net/project/showfiles.php?group_id=117170</downloadUrl>
+    <snapshotRepository>
+        <id>ossrh</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+        <id>ossrh</id>
+        <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+</distributionManagement>
+
+
+
+  <mailingLists/>
+  <developers>
+    <developer>
+      <id>imerani</id>
+      <name>Ignacio Merani</name>
+      <email>imerani@users.sourceforge.net</email>
+      <roles>
+        <role>Project leader</role>
+        <role>Java developer</role>
+      </roles>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <!--<id>ge0ffrey</id>-->
+      <name>Geoffrey De Smet</name>
+      <email>ge0ffrey_AT_users_DOT_sourceforge_DOT_net</email><!-- to avoid spam -->
+      <roles>
+        <role>Maven2izer</role>
+      </roles>
+      <timezone>1</timezone>
+    </contributor>
+  </contributors>
+
+
+<licenses>
+    <license>
+        <name>The GNU Lesser General Public License, Version 3.0</name>
+        <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+        <distribution>repo</distribution>
+    </license>
+</licenses>
+
+<!--
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+  TODO remove to refactor to default: src/main/java
+    <resources> TODO remove to refactor to default: src/main/resources
+      <resource>
+        <directory>src/resources</directory>
+      </resource>
+    </resources>
+    <testSourceDirectory>src/test</testSourceDirectory>
+ TODO remove to refactor to default: src/test/java
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+          </configuration>
+      </plugin>
+    </plugins>
+  </build>
+-->
+  <modules>
+    <module>nachocalendar-component</module>
+    <module>nachocalendar-demo</module>
+  </modules>
+
+ <dependencyManagement>
+  <dependencies>
+<!--
+<dependency>
+      <groupId>net.sf.nachocalendar</groupId>
+      <artifactId>nachocalendar-component</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+ -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+ </dependencyManagement>
+
+<build>
+    <pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                </configuration>
+            </plugin>
+        </plugins>
+    </pluginManagement>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.7.0</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+                <execution>
+                    <id>attach-sources</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>jar-no-fork</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>versions-maven-plugin</artifactId>
+            <version>2.2</version>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.0.1</version>
+            <configuration>
+                <aggregate>true</aggregate>
+                <breakiterator>true</breakiterator>
+                <detectLinks>true</detectLinks>
+                <detectOfflineLinks>true</detectOfflineLinks>
+                <links>
+                    <link>http://download.oracle.com/javase/7/docs/api/</link>
+                    <link>http://download.oracle.com/javaee/7/api/</link>
+                    <link>http://docs.spring.io/spring/docs/current/javadoc-api/</link>
+                    <link>http://docs.spring.io/spring-data/data-jpa/docs/current/api/</link>
+                    <link>http://slf4j.org/api/</link>
+                    <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                    <link>http://junit.sourceforge.net/javadoc/</link>
+                </links>
+                <linksource>true</linksource>
+                <show>private</show>
+                <additionalparam>${javadoc.opts}</additionalparam>
+            </configuration>
+        </plugin>
+        
+        <!-- see https://central.sonatype.org/pages/apache-maven.html -->
+        <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.8</version>
+            <extensions>true</extensions>
+            <configuration>
+                <serverId>ossrh</serverId>
+                <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+<profiles>
+    <profile>
+        <id>code-sign</id>
+        <activation>
+            <property>
+                <name>performRelease</name>
+                <value>true</value>
+            </property>
+        </activation>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+</profiles>
+
+<scm>
+    <connection>scm:git:git@github.com:appendium/nachocalendar.git</connection>
+    <url>git://github.com:appendium/nachocalendar.git</url>
+    <developerConnection>scm:git:git@github.com:appendium/nachocalendar.git</developerConnection>
+</scm>
+
+<issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/appendium/nachocalendar/issues/</url>
+</issueManagement>
+
+<reporting>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-project-info-reports-plugin</artifactId>
+            <!--  <version>3.0.0</version>-->
+        </plugin>
+        <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+                <code>javadoc:aggregate</code>
+                <source>1.8</source>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-changes-plugin</artifactId>
+            <version>2.12.1</version>
+            <configuration>
+                <configuration>
+                    <githubAPIScheme>https</githubAPIScheme>
+                    <githubAPIPort>443</githubAPIPort>
+                </configuration>
+                <issueManagementSystems>
+                    <issueManagementSystem>GitHub</issueManagementSystem>
+                    <url>https://github.com/appendium/nachocalendar/issues/</url>
+                </issueManagementSystems>
+            </configuration>
+            <reportSets>
+                <reportSet>
+                    <reports>
+                        <report>changes-report</report>
+                    </reports>
+                </reportSet>
+            </reportSets>
+        </plugin>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>versions-maven-plugin</artifactId>
+            <version>2.2</version>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jxr-plugin</artifactId>
+            <version>2.5</version>
+            <configuration>
+                <aggregate>true</aggregate>
+                <linkJavadoc>true</linkJavadoc>
+                <javadocDir>apidocs</javadocDir>
+            </configuration>
+        </plugin>
+        
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-changelog-plugin</artifactId>
+            <version>2.3</version>
+            <reportSets>
+                <reportSet>
+                    <id>dual-report</id>
+                    <configuration>
+                        <type>range</type>
+                        <range>30</range>
+                    </configuration>
+                    <reports>
+                        <report>changelog</report>
+                        <report>file-activity</report>
+                    </reports>
+                </reportSet>
+            </reportSets>
+        </plugin>
+    </plugins>
+</reporting>
+
+<ciManagement>
+    <system>Travis-ci</system>
+    <url>https://travis-ci.org/Appendium/nachocalendar</url>
+</ciManagement>
+</project>
