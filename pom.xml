@@ -91,9 +91,7 @@
 
     <modules>
         <module>nachocalendar-component</module>
-        <!--
-            <module>nachocalendar-demo</module>
-        -->
+        <module>nachocalendar-demo</module>
     </modules>
 
     <dependencyManagement>
