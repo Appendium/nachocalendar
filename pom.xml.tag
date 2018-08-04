@@ -224,6 +224,7 @@
         <connection>scm:git:git@github.com:appendium/nachocalendar.git</connection>
         <url>git://github.com:appendium/nachocalendar.git</url>
         <developerConnection>scm:git:git@github.com:appendium/nachocalendar.git</developerConnection>
+        <tag>nachocalendar-parent-0.25</tag>
     </scm>
 
     <issueManagement>
