@@ -69,11 +69,8 @@ public final class TaskCalendarFactory {
 
     /**
      * Returns a formatted DateField.
-     * 
-     * @return a new formatted DatePanel
      */
     public static DateField createDateField(final String formatter, final Locale userLocale) {
-
         requiredLocale = userLocale;
         requiredFormatter = new DateFormatter(new java.text.SimpleDateFormat(formatter, userLocale));
         FormatSymbols.getDefaultInstance().setRequiredLocale(requiredLocale);
@@ -84,8 +81,6 @@ public final class TaskCalendarFactory {
 
     /**
      * Returns a new DateField customized to show Tasks.
-     * 
-     * @return a new DateField
      */
     public static DateField createDateField() {
         final DateField retorno = new DateField();
@@ -101,8 +96,6 @@ public final class TaskCalendarFactory {
 
     /**
      * Returns a new CalendarPanel customized to show Tasks.
-     * 
-     * @return a new CalendarPanel
      */
     public static CalendarPanel createCalendarPanel() {
         final CalendarPanel retorno = new CalendarPanel();
