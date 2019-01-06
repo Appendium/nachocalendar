@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
         <version>7</version>
     </parent>
+
     <groupId>net.sf.nachocalendar</groupId>
     <artifactId>nachocalendar-parent</artifactId>
-    <packaging>pom</packaging>
     <name>NachoCalendar</name>
     <version>0.25</version>
-    <description>Calendar components</description>
     <url>https://github.com/Appendium/nachocalendar</url>
+    <packaging>pom</packaging>
+
+    <description>Calendar components</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,19 +26,31 @@
         <slf4j.version>1.7.21</slf4j.version>
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
     </properties>
+
+    <modules>
+        <module>nachocalendar-component</module>
+        <module>nachocalendar-demo</module>
+    </modules>
+
     <inceptionYear>2004</inceptionYear>
     <organization>
         <name>Appendium - Portfolio Financing Platform</name>
         <url>http://www.appendium.com/</url>
     </organization>
 
+    <licenses>
+        <license>
+            <name>The GNU Lesser General Public License, Version 3.0</name>
+            <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <distributionManagement>
         <site>
             <id>nachocalendar.sf.net</id>
             <url>${site.deploy.url}</url>
         </site>
-        <downloadUrl>http://sourceforge.net/project/showfiles.php?group_id=117170</downloadUrl>
         <snapshotRepository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -45,7 +60,7 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-    <mailingLists />
+
     <developers>
         <developer>
             <id>imerani</id>
@@ -79,20 +94,6 @@
         </contributor>
     </contributors>
 
-
-    <licenses>
-        <license>
-            <name>The GNU Lesser General Public License, Version 3.0</name>
-            <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <modules>
-        <module>nachocalendar-component</module>
-        <module>nachocalendar-demo</module>
-    </modules>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -105,8 +106,8 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.2</version>
-                <scope>compile</scope>
+                <version>1.18.4</version>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -131,7 +132,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.8.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -171,7 +172,9 @@
                     </links>
                     <linksource>true</linksource>
                     <show>private</show>
-                    <additionalparam>${javadoc.opts}</additionalparam>
+                    <additionalOptions>
+                        <additionalOption>-Xdoclint:none</additionalOption>
+                    </additionalOptions>
                 </configuration>
             </plugin>
 
@@ -243,7 +246,6 @@
                 <configuration>
                     <code>javadoc:aggregate</code>
                     <source>1.8</source>
-                    <additionalparam>${javadoc.opts}</additionalparam>
                 </configuration>
             </plugin>
             <plugin>
