@@ -159,23 +159,26 @@ public class CalendarPanel extends JPanel implements ChangeListener {
     /** Holds value of property yearPosition.  */
     private int yearPosition;
 
-    /** Default constructor, constructs a vertical panel with 3 months. */
+    /**
+     * Default constructor, constructs a vertical panel with 3 months.
+     */
     public CalendarPanel() {
         this(3, VERTICAL);
     }
 
     /**
-     * Constructs a panel with 3 months and the provided orientation.
-     * @param quantity quantity of months to show at once
+     * Constructs a panel with a specified number of months and vertical orientation.
+     *
+     * @param quantity the number of months to show at once
      */
     public CalendarPanel(final int quantity) {
         this(quantity, VERTICAL);
     }
 
     /**
-     * Constructrs a panel with 3 months, Vertical.
+     * Constructs a panel with 3 months, vertical orientation, and an option to show week numbers.
      * 
-     * @param showWeekNumbers
+     * @param showWeekNumbers true to show week numbers, false otherwise
      */
     public CalendarPanel(final boolean showWeekNumbers) {
         this(3, VERTICAL, showWeekNumbers);
@@ -183,13 +186,19 @@ public class CalendarPanel extends JPanel implements ChangeListener {
 
     /**
      * Constructs a panel with the provided quantity and orientation.
-     * @param quantity months to show at once
-     * @param orientation orientation
+     * @param quantity the number of months to show at once
+     * @param orientation the orientation of the panel (HORIZONTAL or VERTICAL)
      */
     public CalendarPanel(final int quantity, final int orientation) {
         this(quantity, orientation, true);
     }
 
+    /**
+     * Constructs a panel with the provided quantity, orientation, and week number visibility.
+     * @param quantity months to show at once
+     * @param orientation orientation
+     * @param showWeekNumber true to show the week numbers
+     */
     // TODO: LeO: parameterized correctly
     public CalendarPanel(final int quantity, final int orientation, final boolean showWeekNumber) {
         this(quantity, orientation, showWeekNumber, true);
@@ -197,9 +206,10 @@ public class CalendarPanel extends JPanel implements ChangeListener {
 
     /**
      * Creates a new instance of CalendarPanel.
-     * @param showWeekNumber true to show the week numbers
      * @param quantity months to show at once
      * @param orientation the orientation
+     * @param showWeekNumber true to show the week numbers
+     * @param eternalScroll true for eternal scroll
      */
     public CalendarPanel(int quantity, final int orientation, final boolean showWeekNumber, final boolean eternalScroll) {
         if (quantity < 1) {

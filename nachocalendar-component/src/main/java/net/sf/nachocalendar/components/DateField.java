@@ -151,18 +151,15 @@ public class DateField extends JPanel implements ActionListener, PropertyChangeL
     /**
      * Creates a new instance of DateField.
      *
-     * @param showWeekNumbers
-     *            true if the week numbers must be shown
-     *
+     * @param showWeekNumbers true if the week numbers must be shown
      */
     public DateField(final boolean showWeekNumbers) {
-        // panel = new WindowPanel(parent, showWeekNumbers);
         this.showWeekNumbers = showWeekNumbers;
         init();
     }
 
     /**
-     * Constructs a default DateField.
+     * Constructs a default DateField with no week numbers shown.
      */
     public DateField() {
         this(false);
@@ -171,14 +168,18 @@ public class DateField extends JPanel implements ActionListener, PropertyChangeL
     /**
      * Constructor with a custom formatter.
      *
-     * @param formatter
-     *            formatter used for the textfield
+     * @param formatter formatter used for the textfield
      */
     public DateField(final DateFormatter formatter) {
         this.formatter = formatter;
         init();
     }
 
+    /**
+     * Constructor with a custom date format.
+     *
+     * @param dateFormat the date format to use
+     */
     public DateField(final DateFormat dateFormat) {
         this.dateFormat = dateFormat;
         init();
@@ -187,8 +188,7 @@ public class DateField extends JPanel implements ActionListener, PropertyChangeL
     /**
      * Constructor with a custom locale.
      *
-     * @param locale
-     *            Locale to use
+     * @param locale Locale to use
      */
     public DateField(final Locale locale) {
         this.levelLocale = locale;

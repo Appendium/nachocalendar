@@ -22,8 +22,10 @@
         <github.global.server>github</github.global.server>
         <github.global.oauth2Token>${env.GITHUB_OAUTH_TOKEN}</github.global.oauth2Token>
         <javadoc.opts>-Xdoclint:none</javadoc.opts>
-        <slf4j.version>1.7.36</slf4j.version>
+        <slf4j.version>2.0.12</slf4j.version>
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
 
     <modules>
@@ -117,7 +119,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.3</version>
+                    <version>3.0.1</version>
                     <configuration>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <useReleaseProfile>false</useReleaseProfile>
@@ -131,16 +133,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
+                <version>3.11.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -154,12 +152,12 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.16.2</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.6.3</version>
                 <configuration>
                     <aggregate>true</aggregate>
                     <breakiterator>true</breakiterator>
@@ -181,7 +179,7 @@
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
+                <version>1.6.13</version>
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>ossrh</serverId>
@@ -245,7 +243,6 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <code>javadoc:aggregate</code>
-                    <source>1.8</source>
                 </configuration>
             </plugin>
             <plugin>
@@ -253,10 +250,6 @@
                 <artifactId>maven-changes-plugin</artifactId>
                 <version>2.12.1</version>
                 <configuration>
-                    <configuration>
-                        <githubAPIScheme>https</githubAPIScheme>
-                        <githubAPIPort>443</githubAPIPort>
-                    </configuration>
                     <issueManagementSystems>
                         <issueManagementSystem>GitHub</issueManagementSystem>
                         <url>https://github.com/appendium/nachocalendar/issues/</url>
@@ -273,7 +266,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.16.2</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
